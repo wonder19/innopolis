@@ -15,7 +15,7 @@ def monster():
             monster_tuple = ('C(*__*)o', i, i * 5)
             monsters.append(monster_tuple)
         elif i % 4 == 0:
-            monster_tuple = ('(8 + 8)/, i * 4, i * 4')
+            monster_tuple = ('х(8 + 8)х', i * 4, i * 4)
             monsters.append(monster_tuple)
     i = +1
     return monsters
@@ -73,18 +73,18 @@ def output_print(monster, apple, sword, step_count):
     step_count = step_count
     step_for_out = 0
     if step_count % 2 == 0:
-        print('You meet monster   ', monster_list[step_count][0], '  force  ', monster_list[step_count][1], "health  ",
+        print('You meet monster   ', monster_list[step_count][0], ' force ', monster_list[step_count][1], "  health  ",
               monster_list[step_count][2])
         step_for_out = 'monster'
 
     elif step_count % 2 == 1 and step_count % 3 != 0:
-        print('You get apple for force! look at it  ', apple_list[step_count][0], "   you get ",
+        print('You get apple for force! look at it  ', apple_list[step_count][0], "  you get  ",
               apple_list[step_count][1],
               "health")
         step_for_out = 'apple'
 
     elif step_count % 3 == 0:
-        print('You get a new sword  ', sword_list[step_count][0], "   its force is", sword_list[step_count][1])
+        print('You get a new sword  ', sword_list[step_count][0], "  its force is  ", sword_list[step_count][1])
         step_for_out = 'sword'
 
     return step_for_out
@@ -129,12 +129,14 @@ def chooose_next_step(who):
 
 def monster_fight(knight, monster, step_count):
     """Функция сражения с монстром"""
-    knight_for_fight = knight[2]
-    monster_for_fight = monster[step_count][2]
-    if monster_for_fight > knight_for_fight:
+    knight_health = knight[2]
+    knight_force = knight[1]
+    monster_health= monster[step_count][2]
+    monster_force = monster[step_count][1]
+    if monster_health > knight_force:
         return False
     else:
-        knight[2] = knight_for_fight - monster_for_fight
+        knight[2] = knight_health - monster_force
         return True
 
 
@@ -193,7 +195,7 @@ def play():
                     return False
         elif output_info == "apple":
             knight = submit_knight_health_with_apple(knight, ap, step_count)
-            print("Now knight healht", knight[2])
+            print("Now knight health", knight[2])
 
         elif output_info == "sword":
             choose_step = chooose_next_step(list_for_print[1])
