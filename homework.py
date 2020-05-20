@@ -1,21 +1,21 @@
 def monster():
     """Функция создания массива чудовищ
-        monster_tuple=(view, force)
+        monster_tuple=(view, force, health)
     """
     monsters = []
     i = 5
     for i in range(5, 30):
         if i % 2 == 0:
-            monster_tuple = ('o(:/:)o', i)
+            monster_tuple = ('o(:/:)o', i, i)
             monsters.append(monster_tuple)
         elif i % 2 == 1 and i % 5 != 0:
-            monster_tuple = ('@(/__*)@', i * 2)
+            monster_tuple = ('@(/__*)@', i * 2, i*2)
             monsters.append(monster_tuple)
         elif i % 5 == 0:
-            monster_tuple = ('C(*__*)o', i )
+            monster_tuple = ('C(*__*)o', i, i*5)
             monsters.append(monster_tuple)
         else:
-            monster_tuple = ('\(8 + 8)/', i * 4)
+            monster_tuple = ('\(8 + 8)/', i * 4, i*4)
             monsters.append(monster_tuple)
     i = +1
     return monsters
@@ -73,7 +73,7 @@ def output_print( monster, apple, sword, step_count):
     step_count=step_count
     step_for_out = 0
     if step_count % 2 == 0:
-        print('You meet monster   ', monster_list[step_count][0], '  force  ', monster_list[step_count][1])
+        print('You meet monster   ', monster_list[step_count][0], '  force  ', monster_list[step_count][1], "health  ", monster_list[step_count][2])
         step_for_out = 'monster'
         #return step_for_out
 
@@ -99,30 +99,38 @@ def submit_knight_health_with_apple(knight, apple, step_count):
     return knight
 
 
-def chooose_for_monster():
-    """Функция выбора шага монстра"""
+def chooose_next_step(who):
+    """Функция выбора следующего шага"""
     valid_input = False
     while valid_input is not True:
-        chooos_input=[]
-        chooos_input = list(input('Input 1 for FIGTHT or 2 for MOVE FORWARD '))
-        if len(chooos_input)>1:
-            print("easy easy, not so many letters")
-            continue
+        chose_for_return=None
+        if who=="monster":
+            chooos_input = list(input('Input 1 for FIGTHT or 2 for MOVE FORWARD '))
         else:
-            chooos = chooos_input[0]
-            try:
-                int(chooos)
-            except:
-                print("not a number, dear friend")
+            chooos_input = list(input('Input 1 TAKE it or 2 for MOVE FORWARD '))
+        if len(chooos_input)!=0:
+            if len(chooos_input)>1:
+                print("easy easy, not so many letters")
                 continue
-        valid_input = input_validation(int(chooos))
-    return valid_input
+            else:
+                chooos = chooos_input[0]
+                try:
+                    int(chooos)
+                except:
+                    print("not a number, dear friend")
+                    continue
+            valid_input = input_validation(int(chooos))
+        else:
+            print('print something for better result')
+            continue
+    chose_for_return=int(chooos)
+    return chose_for_return
 
 
 def monster_fight(knight, monster, step_count):
     """Функция сражения с монстром"""
     knight_for_fight = knight[2]
-    monster_for_fight = monster[step_count][1]
+    monster_for_fight = monster[step_count][2]
     if monster_for_fight > knight_for_fight:
         return False
     else:
@@ -130,24 +138,31 @@ def monster_fight(knight, monster, step_count):
         return True
 
 
-def chooose_for_sword():
-    """Функция выбора шага для выбора меча"""
-    valid_input = False
-    while valid_input is not True:
-        chooos_input=[]
-        chooos_input = list(input('Input 1 ti TAKE sword or 2 for MOVE FORWARD '))
-        if len(chooos_input)>1:
-            print("easy easy, not so many letters")
-            continue
-        else:
-            chooos = chooos_input[0]
-            try:
-                int(chooos)
-            except:
-                print("not a number, dear friend")
-                continue
-        valid_input = input_validation(int(chooos))
-    return valid_input
+# def chooose_for_sword():
+#     """Функция выбора шага для выбора меча"""
+#     valid_input = False
+#     valid_input = False
+#     while valid_input is not True:
+#         chose_for_return=None
+#         input = input('Input 1 TAKE it or 2 for MOVE FORWARD ')
+#         if input:
+#             chooos_input=list(input)
+#             if len(chooos_input)>1:
+#                 print("easy easy, not so many letters")
+#                 continue
+#             else:
+#                 chooos = chooos_input[0]
+#                 try:
+#                     int(chooos)
+#                 except:
+#                     print("not a number, dear friend")
+#                     continue
+#             valid_input = input_validation(int(chooos))
+#         else:
+#             print('print something for best resul')
+#             continue
+#     chose_for_return=int(chooos)
+#     return chose_for_return
 
 
 def take_the_sword(knight, sword, step_count):
@@ -183,12 +198,13 @@ def play():
     ap = apple()
     sw = sword()
     step_count = 0
+    list_for_print=['monster','sword']
     print("welcome, ", knight[0], "! lets start.. you are knight, you should kill 10 monsters, you have force ", knight[1], "and healht ", knight[1])
     while True:
         output_info = output_print(mon, ap, sw, step_count)
         if output_info == "monster":
-            choose_step = chooose_for_monster()
-            if choose_step:
+            choose_step = chooose_next_step(list_for_print[0])
+            if choose_step==1:
                 fight = monster_fight(knight, mon, step_count)
                 if fight:
                     monster_death = monster_death +1
@@ -206,8 +222,8 @@ def play():
             print("Now knight healht", knight[2])
 
         elif output_info == "sword":
-            choose_step = chooose_for_sword()
-            if choose_step:
+            choose_step = chooose_next_step(list_for_print[1])
+            if choose_step==1:
                 knight=take_the_sword(knight, sw, step_count)
                 print("Now your force is", knight[1])
 
