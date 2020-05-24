@@ -14,16 +14,16 @@ def monster() -> list:
     i = 1
     for i in range(1, 30):
         if i % 2 == 0 and i % 4 != 0:
-            monster_tuple = ['o(:/:)o', i, i]
+            monster_tuple = ('o(:/:)o', i, i)
             monsters.append(monster_tuple)
         elif i % 2 == 1 and i % 5 != 0:
-            monster_tuple = ['@(/__*)@', i * 2, i * 2 - 1]
+            monster_tuple = ('@(/__*)@', i * 2, i * 2 - 1)
             monsters.append(monster_tuple)
         elif i % 5 == 0:
-            monster_tuple = ['C(*__*)o', i + 6, i * 5]
+            monster_tuple = ('C(*__*)o', i + 6, i * 5)
             monsters.append(monster_tuple)
         elif i % 4 == 0:
-            monster_tuple = ['х(8 + 8)х', i * 4, i * 3 + 7]
+            monster_tuple = ('х(8 + 8)х', i * 4, i * 3 + 7)
             monsters.append(monster_tuple)
     i = +1
     return monsters
@@ -34,23 +34,23 @@ def apple() -> list:
 
     Функция возвращает массив яблок.
 
-        apples=[view, health]
+        apples=(view, health)
 
     """
     apples = []
     i = 1
     for i in range(1, 30):
         if i % 2 == 0 and i % 4 != 0:
-            apple_tuple = ['(`)', i]
+            apple_tuple = ('(`)', i)
             apples.append(apple_tuple)
         elif i % 2 == 1 and i % 5 != 0:
-            apple_tuple = ['( `)', (i * 2) - 1]
+            apple_tuple = ('( `)', (i * 2) - 1)
             apples.append(apple_tuple)
         elif i % 5 == 0:
-            apple_tuple = ['(  `)', (i * 3) + 5]
+            apple_tuple = ('(  `)', (i * 3) + 5)
             apples.append(apple_tuple)
         elif i % 4 == 0:
-            apple_tuple = ['(   )', i * 4]
+            apple_tuple = ('(   )', i * 4)
             apples.append(apple_tuple)
     i = +1
     return apples
@@ -61,23 +61,23 @@ def sword() -> list:
 
     Функция возвращает массив мечей.
 
-    swords=[view, force]
+    swords=(view, force)
 
     """
     swords = []
     i = 1
     for i in range(1, 30):
         if i % 2 == 0 and i % 3 != 0:
-            sword_tuple = ['<-/-', i]
+            sword_tuple = ('<-/-', i)
             swords.append(sword_tuple)
         elif i % 2 == 1 and i % 5 != 0:
-            sword_tuple = ['--->-', i * 2]
+            sword_tuple = ('--->-', i * 2)
             swords.append(sword_tuple)
         elif i % 5 == 0:
-            sword_tuple = ['<---X-', i * 5]
+            sword_tuple = ('<---X-', i * 5)
             swords.append(sword_tuple)
         elif i % 3 == 0:
-            sword_tuple = ['___/_', (i * 3) + 4]
+            sword_tuple = ('___/_', (i * 3) + 4)
             swords.append(sword_tuple)
     i = +1
     return swords
@@ -88,12 +88,7 @@ def output_print(monster: list,
                  sword: list,
                  step_count: int) -> str:
     """Функция выводит уведомления о том, что выпало игроку."""
-    # monster_list = monster
-    apple_list = apple
-    sword_list = sword
-    step_count = step_count
     step_for_out = None
-    str_for_out = None
     if step_count % 2 == 0:
         print('You meet monster  ', monster[step_count][0],
               ' force ', monster[step_count][1],
@@ -102,17 +97,17 @@ def output_print(monster: list,
 
     elif step_count % 3 == 0:
         print('You get apple for force! look at it  ',
-              apple_list[step_count][0], "  you get  ",
-              apple_list[step_count][1],
+              apple[step_count][0], "  you get  ",
+              apple[step_count][1],
               "health")
         step_for_out = 'apple'
 
     elif step_count % 2 == 1:
-        print('You get a new sword  ', sword_list[step_count][0],
-              "  its force is  ", sword_list[step_count][1])
+        print('You get a new sword  ', sword[step_count][0],
+              "  its force is  ", sword[step_count][1])
         step_for_out = 'sword'
-    str_for_out = str(step_for_out)
-    return str_for_out
+
+    return step_for_out
 
 
 def submit_knight_health_with_apple(knight: list,
@@ -125,11 +120,11 @@ def submit_knight_health_with_apple(knight: list,
 
 
 def chooose_next_step(who: str) -> int:
-    """Функция выбора следующего шага."""
-    global chooos
+    """Функция проверки введенного значения для выбора следующего шага."""
+    chooos = None
     valid_input = False
+    choice_list = [1, 2]
     while valid_input is not True:
-        chose_for_return = None
         if who == "monster":
             chooos_input = list(input('Input 1 for FIGTHT or'
                                       ' 2 for MOVE FORWARD '))
@@ -145,14 +140,19 @@ def chooose_next_step(who: str) -> int:
                 try:
                     int(chooos)
                 except Exception:
-                    print("not a number, dear friend")
+                    print("its not a number, dear friend")
                     continue
-            valid_input = input_validation(int(chooos))
+            if int(chooos) in choice_list:
+                chooos = int(chooos)
+                return chooos
+            else:
+                print('1 or 2 pleaseee')
+                continue
         else:
             print('print something for better result')
             continue
-    chose_for_return = int(chooos)
-    return chose_for_return
+    chooos = int(chooos)
+    return chooos
 
 
 def monster_fight(knight: list,
@@ -186,17 +186,6 @@ def check_the_win(monster_death: int) -> bool:
     if monster_death == 10:
         return True
     else:
-        return False
-
-
-def input_validation(chooos: int) -> bool:
-    """Функция проверки того, что ввел игрок."""
-    chooos = chooos
-    choice_list = [1, 2]
-    if chooos in choice_list:
-        return True
-    else:
-        print('1 or 2 pleaseee')
         return False
 
 
