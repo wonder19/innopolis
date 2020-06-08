@@ -11,7 +11,6 @@ def monster() -> list:
 
     """
     monsters = []
-    i = 1
     for i in range(1, 30):
         if i % 2 == 0 and i % 4 != 0:
             monster_tuple = ('o(:/:)o', i, i)
@@ -25,7 +24,6 @@ def monster() -> list:
         elif i % 4 == 0:
             monster_tuple = ('х(8 + 8)х', i * 4, i * 3 + 7)
             monsters.append(monster_tuple)
-    i = +1
     return monsters
 
 
@@ -38,7 +36,6 @@ def apple() -> list:
 
     """
     apples = []
-    i = 1
     for i in range(1, 30):
         if i % 2 == 0 and i % 4 != 0:
             apple_tuple = ('(`)', i)
@@ -52,7 +49,6 @@ def apple() -> list:
         elif i % 4 == 0:
             apple_tuple = ('(   )', i * 4)
             apples.append(apple_tuple)
-    i = +1
     return apples
 
 
@@ -65,7 +61,6 @@ def sword() -> list:
 
     """
     swords = []
-    i = 1
     for i in range(1, 30):
         if i % 2 == 0 and i % 3 != 0:
             sword_tuple = ('<-/-', i)
@@ -79,7 +74,6 @@ def sword() -> list:
         elif i % 3 == 0:
             sword_tuple = ('___/_', (i * 3) + 4)
             swords.append(sword_tuple)
-    i = +1
     return swords
 
 
