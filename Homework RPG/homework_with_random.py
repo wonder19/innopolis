@@ -1,4 +1,4 @@
-"""RPG abot knight mosters apples and swoooords."""
+"""RPG about knight monsters apples and swoooords."""
 import random
 
 
