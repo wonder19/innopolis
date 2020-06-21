@@ -45,15 +45,26 @@ class CoffeMaschin:
                         self.total_quantity.append(sirop_dict)
         print(self.total_quantity)
 
-
     def menu(self):
+        coffe = []
+        sirop = []
+        milk = []
+        water = []
         for item in self.total_quantity:
             for key in item:
+                if key == 'кофе':
+                    coffe.append(item)
+                elif key == 'сироп':
+                    sirop.append(item)
+                elif key == 'вода':
+                    water.append(item)
+                elif key == 'молоко':
+                    milk.append(item)
 
-        for i in range(len(self.total_quantity)):
-            result=list(itertools.product(self.total_quantity[i])
+        result = list(itertools.product(coffe, water))+list(itertools.product(coffe, water,milk))\
+                 +list(itertools.product(coffe, water,sirop))+list(itertools.product(coffe, water, sirop, milk))
 
-         return
+        return result
 
 
 if __name__ == '__main__':
@@ -70,12 +81,7 @@ if __name__ == '__main__':
         "количество": 1000,
         "порция": 10
     },
-    {
-        "ресурс" : "молоко",
-        "тип" : "молоко",
-        "количество" : 100,
-        "порция" : 60
-    },
+
     {
         "ресурс" : "вода",
         "тип" : "вода",
@@ -87,7 +93,7 @@ if __name__ == '__main__':
         "тип" : "сироп",
         "количество" : 200,
         "порция" : 80
-    }
+    },
     {
         "ресурс" : "шоколад",
         "тип" : "сироп",
@@ -96,4 +102,4 @@ if __name__ == '__main__':
     }
 ])
     a.calculate()
-    a.menu()
+    print(a.menu())
