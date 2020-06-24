@@ -11,7 +11,7 @@ class TooMuchParametersException(Exception):
         super().__init__(message)
 
 
-def calculate(dictionary: dict) -> list:
+def calculate(dictionary: dict):
     """Calculate possible combinations."""
     planet_list = []
     total = []
@@ -22,6 +22,7 @@ def calculate(dictionary: dict) -> list:
             planet_list.append(planet_dict)
         total.append(planet_list)
         planet_list = []
+        # print(total)
 
     result = list(itertools.product(*total))
     new_dict = {}
@@ -30,6 +31,7 @@ def calculate(dictionary: dict) -> list:
         for dicti in item:
             new_dict.update(dicti)
         new_result.append(new_dict)
+        new_dict = {}
 
     if len(new_result) > 100:
         raise TooMuchParametersException("Too much params")
@@ -40,10 +42,7 @@ def calculate(dictionary: dict) -> list:
 if __name__ == '__main__':
     a = {
         "атмосфера": ["кислородосодержащая", "отсутствует"],
-        "размер": ["карлик", "средний", "великан"],
-        "населённость": ["растения", "существа", "разумные существа", "нет"],
-        "температура": ["низкая", "средняя", "выскоая"],
-        "посещалась ранее": ["да", "нет"]
+        "размер": ["карлик", "средний", "великан"]
     }
 
     pprint(calculate(a))
