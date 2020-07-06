@@ -1,21 +1,23 @@
+from selenium import webdriver
+from  webdriver_manager.chrome import ChromeDriverManager
 
-from innopolis.Homework_PageObject.Driver import Driver
-from innopolis.Homework_PageObject.Locator.Locator import YandexLocator
-from innopolis.Homework_PageObject.URL import URL
+from Locator.Locator import YandexLocator
 
 
 class YandexPage:
     """Class discribes component on the page."""
-    driver=Driver.Driver.chrome_driver
+    driver=webdriver.Chrome(ChromeDriverManager().install())
+    YANDEX = 'https://ya.ru/'
 
     def yandex_search(self):
-        """Discription if INPPUT element."""
+        """Discription if INPUT element."""
         yandex_search= self.driver.find_element(*YandexLocator.YANDEX_SEARCH)
         return yandex_search
 
     def open_yandex_page(self):
         """Open Yandex page function."""
-        self.driver.get(URL.URL.YANDEX)
+        return self.driver.get(self.YANDEX)
+
 
     def quit_yandex_page_driver(self):
         """Close Driver after all."""

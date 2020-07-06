@@ -2,4 +2,4 @@
 
 class URL:
     """Content all URLs."""
-    YANDEX='https://yandex.ru/'
+    YANDEX='https://ya.ru/'
