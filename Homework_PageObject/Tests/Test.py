@@ -8,7 +8,7 @@ def test_yandex_search_python_result():
     search.send_keys('python')
     submit = ya.submit()
     submit.click()
-    assert "!123" in ya.get_source(), 'No such result'
+    assert "python" in ya.get_source(), 'No such result'
     ya.quit_page_driver()
 
 
