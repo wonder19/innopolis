@@ -14,24 +14,24 @@ class YandexPage:
     """Class discribes components on the Yandex page."""
     driver = Driver.chrome_driver
 
-    def yandex_search(self):
+    def search(self):
         """Discription if INPUT element."""
         yandex_search = self.driver.find_element(*YandexLocator.YANDEX_SEARCH)
         return yandex_search
 
-    def open_yandex_page(self):
+    def open_page(self):
         """Open Yandex page function."""
         return self.driver.get(URL.YANDEX)
 
-    def quit_yandex_page_driver(self):
+    def quit_page_driver(self):
         """Close Driver after all."""
         self.driver.quit()
 
-    def get_yandex_source(self):
+    def get_source(self):
         """Return Driver."""
         return self.driver.page_source
 
-    def yandex_submit(self):
+    def submit(self):
         """Discription if INPPUT element."""
         yandex_submit = self.driver.find_element(*YandexLocator.YANDEX_SUBMIT)
         return yandex_submit
@@ -44,12 +44,3 @@ class YandexPage:
             self.driver.quit()
 
 
-class PythonPage:
-    """Class discribes elements on the Python Page."""
-    driver = Driver.chrome_driver
-
-    def open_python_page(self):
-        return self.driver.get(URL.PYTHON)
-
-    def find_download_element(self):
-        pass

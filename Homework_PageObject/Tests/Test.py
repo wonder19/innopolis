@@ -3,16 +3,17 @@ from Page.Page import YandexPage
 
 def test_yandex_search_python_result():
     ya = YandexPage()
-    ya.open_yandex_page()
-    search = ya.yandex_search()
+    ya.open_page()
+    search = ya.search()
     search.send_keys('python')
-    submit = ya.yandex_submit()
+    submit = ya.submit()
     submit.click()
-    assert "python" not in ya.get_yandex_source(), 'No such result'
-    ya.quit_yandex_page_driver()
+    assert "!123" in ya.get_source(), 'No such result'
+    ya.quit_page_driver()
 
 
 def test_submit_multi_click():
     ya = YandexPage()
-    ya.open_yandex_page()
+    ya.open_page()
     ya.click_on_submit_multi_times()
+
